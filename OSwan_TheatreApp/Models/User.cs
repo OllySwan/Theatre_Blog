@@ -29,8 +29,11 @@ namespace OSwan_TheatreApp.Models
         [Display(Name ="Post Code")]
         public string PostCode { get; set; }
 
+        [Display(Name ="Joined")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime RegisteredAt { get; set; }
 
+        [Display(Name ="Suspended")]
         public bool IsSuspended { get; set; }
 
 
