@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSwan_TheatreApp.Models;
+using OSwan_TheatreApp.Models.ViewModels;
 
 namespace OSwan_TheatreApp.Controllers
 {

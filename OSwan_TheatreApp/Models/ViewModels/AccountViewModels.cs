@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace OSwan_TheatreApp.Models
+namespace OSwan_TheatreApp.Models.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

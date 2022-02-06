@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace OSwan_TheatreApp.Models
+namespace OSwan_TheatreApp.Models.ViewModels
 {
     public class IndexViewModel
     {
