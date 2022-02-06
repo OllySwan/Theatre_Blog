@@ -16,6 +16,7 @@ namespace OSwan_TheatreApp.Models
             public TheatreDbContext()
                 : base("TheatreConnection", throwIfV1Schema: false)
             {
+            Database.SetInitializer(new DatabaseInitialiser());
             }
 
             public static TheatreDbContext Create()
