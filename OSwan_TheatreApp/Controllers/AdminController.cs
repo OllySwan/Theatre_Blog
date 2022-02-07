@@ -106,5 +106,141 @@ namespace OSwan_TheatreApp.Controllers
             //Something went wrong so returned back to user list
             return View(model);
         }
+
+        [Authorize(Roles ="Admin")]
+        [HttpGet]
+        public ActionResult EditModerator(string id)
+        {
+            //If id is null then return bad request
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find the mod by ID
+            Moderator moderator = db.Users.Find(id) as Moderator;
+
+            if (moderator == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Send mods details to the view
+            return View(new EditModeratorViewModel
+            {
+                Street = moderator.Street,
+                City = moderator.City,
+                FirstName = moderator.FirstName,
+                LastName = moderator.LastName,
+                PhoneNumber = moderator.PhoneNumber,
+                PostCode = moderator.PostCode,
+                ModType = moderator.ModType,
+                IsSuspended = moderator.IsSuspended
+
+
+            });
+        }
+
+        //Post editMod
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditModerator(string id,
+            [Bind(Include = "FirstName,LastName,Address,City,PostCode,PhoneNumber,ModType,IsSuspended")] EditModeratorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Moderator mod = (Moderator)await UserManager.FindByIdAsync(id);//Find user by id
+
+                UpdateModel(mod);//Update the new mod details by using the model
+
+                IdentityResult result = await UserManager.UpdateAsync(mod);//update the new mod details on the database
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
+
+            return View(model);
+        }
+
+        public ActionResult EditRegisteredUser(string id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find the user by ID
+            RegisteredUser user = db.Users.Find(id) as RegisteredUser; //find user by id and return it
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Send users details to the view
+            return View(new EditRegisteredUserViewModel
+            {
+                Street = user.Street,
+                City = user.City,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                PostCode = user.PostCode,
+                TrustedUser = user.TrustedUser,
+                IsSuspended = user.IsSuspended
+            }); ;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditRegisteredUser(string id,
+           [Bind(Include = "FirstName,LastName,Address,City,PostCode,PhoneNumber,CustomerType,IsSuspended")] EditRegisteredUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //get user from database by id
+                RegisteredUser user = (RegisteredUser)await UserManager.FindByIdAsync(id);
+
+                UpdateModel(user);//Update user details useing the values from the model
+
+                IdentityResult result = await UserManager.UpdateAsync(user); //update user details in the database
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
+
+            return View(model); //If failure occurs view and model return to the view
+        }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            User user = db.Users.Find(id); //Finds and stores a User as user via ID
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (user is RegisteredUser)
+            {
+                return View("DetailsRegisteredUser", (RegisteredUser)user);
+            }
+
+            if (user is Moderator)
+            {
+                return View("DetailsModerator", (Moderator)user);
+            }
+
+            return HttpNotFound();
+        }
     }
 }

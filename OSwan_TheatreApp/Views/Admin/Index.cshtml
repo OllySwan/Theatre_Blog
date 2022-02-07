@@ -32,7 +32,8 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.UserName)
@@ -53,7 +54,9 @@
         @Html.DisplayFor(modelItem => item.CurrentRole)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        <!--Only allowing an admin to edit Moderators and Registered users for security reasons-->
+        <!--If a single Admin can edit all other admins this would pose a security risk-->
+        @Html.ActionLink("Edit", "Edit" + (item is RegisteredUser ? "RegisteredUser" : "Moderator"), new { id = item.Id }) |
         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
     </td>
