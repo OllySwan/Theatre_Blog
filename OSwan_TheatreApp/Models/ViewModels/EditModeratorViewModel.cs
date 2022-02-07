@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace OSwan_TheatreApp.Models.ViewModels
 {
-    public class CreateUserViewModel
+    public class EditModeratorViewModel
     {
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -19,32 +19,21 @@ namespace OSwan_TheatreApp.Models.ViewModels
 
         public string City { get; set; }
 
-        [DataType(DataType.PostalCode)]
         [Display(Name = "Post Code")]
         public string PostCode { get; set; }
 
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email Address")]
-        public string Email { get; set; }
-
+        [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Email Confirmed")]
-        public bool EmailConfirm { get; set; }
+        [Required]
+        [Display(Name = "Mod Type")]
+        public ModType ModType { get; set; }
 
-        [Display(Name = "Phone Confirm")]
-        public bool PhoneConfirm { get; set; }
+        [Required]
+        [Display(Name = "Suspended")]
+        public bool IsSuspended { get; set; }
 
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Display(Name = "Trusted User")]
-        public TrustedUser TrustedUser { get; set; }
-
-        public string Role { get; set; }
-
-        public ICollection<SelectListItem> Roles { get; set; }
     }
 }
