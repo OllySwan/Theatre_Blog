@@ -44,6 +44,15 @@ namespace OSwan_TheatreApp.Controllers
             return View(users);
         }
 
+        //Post used for searching up a user
+        [HttpPost]
+        public ActionResult Index(string SearchString)
+        {
+            //Searching via first name is much more desireable
+            var users = db.Users.Where(u => u.FirstName == SearchString.Trim());
+            return View(users.ToList());
+        }
+
         //Get
         [HttpGet]
         public ActionResult CreateRegisteredUser()
@@ -230,6 +239,7 @@ namespace OSwan_TheatreApp.Controllers
                 return HttpNotFound();
             }
 
+            //No viewing of Admins details, keeping system secure!
             if (user is RegisteredUser)
             {
                 return View("DetailsRegisteredUser", (RegisteredUser)user);
@@ -241,6 +251,127 @@ namespace OSwan_TheatreApp.Controllers
             }
 
             return HttpNotFound();
+        }
+
+        //Promotion of roles/demotion
+        [HttpGet]
+        public async Task<ActionResult> ChangeRole(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Can't change your own role
+            if (id == User.Identity.GetUserId())
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            //Get user by id
+            User user = await UserManager.FindByIdAsync(id);
+
+            //Get users current role
+            string oldRole = (await UserManager.GetRolesAsync(id)).Single(); //Only ever a single role
+
+
+            //Get all the roles from the database and store them in a list of selecteditems
+            var items = db.Roles.Select(r => new SelectListItem
+            {
+                Text = r.Name,
+                Value = r.Name,
+                Selected = r.Name == oldRole
+            }).ToList();
+
+            //Build the change role view model object including the list of roles
+            //Send it to the view displaying thee roles in a dropdown list with user's current role displayed as text
+            return View(new ChangeViewModel
+            {
+                UserName = user.UserName,
+                Roles = items,
+                OldRole = oldRole,
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("ChangeRole")]
+        public async Task<ActionResult> ChangeRoleConfirmed(string id, [Bind(Include = "Role")] ChangeViewModel model)
+        {
+            //Can't change your own role
+            if (id == User.Identity.GetUserId())
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            if (ModelState.IsValid)
+            {
+                User user = await UserManager.FindByIdAsync(id); //get user by id
+
+                //get users old role
+                string oldRole = (await UserManager.GetRolesAsync(id)).Single();
+
+                //if the current role is the same as selected role then there is no need to update database
+                if (oldRole == model.Role)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                //Remove user from old role first
+                await UserManager.RemoveFromRoleAsync(id, oldRole);
+
+                //Now we add the user to the new role
+                await UserManager.AddToRoleAsync(id, model.Role);
+
+                if (model.Role == "Suspended")
+                {
+                    //Then set IsSuspended to true
+                    user.IsSuspended = true;
+
+                    //Update user's details in the database
+                    await UserManager.UpdateAsync(user);
+                }
+
+                return RedirectToAction("Index", "Admin");
+            }
+            return View(model);
+        }
+
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Can't delete your own account
+            if (id == User.Identity.GetUserId())
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            //find user by id in the database
+            User user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Delete user
+            await UserManager.DeleteAsync(user);
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        //Disposing
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
