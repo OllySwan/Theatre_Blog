@@ -12,8 +12,13 @@ namespace OSwan_TheatreApp.Models
 {
     public class TheatreDbContext : IdentityDbContext<User>
     {
-        
-            public TheatreDbContext()
+
+        //Creating tables in DB
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public TheatreDbContext()
                 : base("TheatreConnection", throwIfV1Schema: false)
             {
             Database.SetInitializer(new DatabaseInitialiser());

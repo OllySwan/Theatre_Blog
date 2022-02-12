@@ -25,6 +25,7 @@ namespace OSwan_TheatreApp.Models
         [DisplayFormat(DataFormatString = "{0:d}")] //Short date, may change later
         public DateTime DatePosted { get; set; }
 
+        public ApprovalStatus ApprovalStatus { get; set; }
 
 
         //Navigational Properties
@@ -42,11 +43,12 @@ namespace OSwan_TheatreApp.Models
         //Will need to store comments
     }
 
-    //public enum PostType
-    //{
-       // Blog,
-        //Review,
-        //Announcement
-    //}
+    //Enum to handle approval status of post
+    public enum ApprovalStatus
+    {
+       TBC,
+       Approved,
+       Declined
+    }
 
 }

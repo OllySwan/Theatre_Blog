@@ -171,12 +171,15 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DatabaseInitialiser.cs" />
     <Compile Include="Models\Moderator.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\RegisteredUser.cs" />
     <Compile Include="Models\TheatreDbContext.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -252,6 +255,9 @@
     <Content Include="Views\Admin\DetailsRegisteredUser.cshtml" />
     <Content Include="Views\Admin\DetailsModerator.cshtml" />
     <Content Include="Views\Admin\ChangeRole.cshtml" />
+    <Content Include="Views\Member\CreatePost.cshtml" />
+    <Content Include="Views\Home\BlogHome.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
