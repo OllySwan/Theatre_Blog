@@ -9,6 +9,11 @@ namespace OSwan_TheatreApp.Models
 {
     public class Post
     {
+        public Post()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+
         [Key]
         public int PostId { get; set; }
 
@@ -40,8 +45,12 @@ namespace OSwan_TheatreApp.Models
         public Category Category { get; set; }//Representing the one
 
 
-        //Will need to store comments
+        //Navigational property Comments
+        public virtual ICollection<Comment> Comments { get; set; } //Reperesents the many
+
     }
+
+}
 
     //Enum to handle approval status of post
     public enum ApprovalStatus
@@ -51,4 +60,3 @@ namespace OSwan_TheatreApp.Models
        Declined
     }
 
-}

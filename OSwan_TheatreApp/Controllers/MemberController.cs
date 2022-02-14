@@ -50,6 +50,5 @@ namespace OSwan_TheatreApp.Controllers
 
             return View(post);
         }
-        
     }
 }

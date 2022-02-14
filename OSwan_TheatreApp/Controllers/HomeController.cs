@@ -50,6 +50,7 @@ namespace OSwan_TheatreApp.Controllers
             //assign category to post
             post.Category = category;
 
+
             //send post model to view
             return View(post);
         }

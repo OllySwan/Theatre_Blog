@@ -14,6 +14,7 @@ namespace OSwan_TheatreApp.Models
     {
 
         //Creating tables in DB
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Post> Posts { get; set; }

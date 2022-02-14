@@ -175,7 +175,7 @@ namespace OSwan_TheatreApp.Models
                 //saving changes to DB
                 context.SaveChanges();
 
-                //Creating testuser
+                //Creating testuser1
                 var registeredUser1 = new RegisteredUser()
                 {
                     UserName = "brandon@hotmail.com",
@@ -195,6 +195,25 @@ namespace OSwan_TheatreApp.Models
                 //Assign to RegisteredUser role
                 userManager.AddToRole(registeredUser1.Id, "RegisteredUser");
 
+                //Creating testuser2
+                var registeredUser2 = new RegisteredUser()
+                {
+                    UserName = "heather.com",
+                    Email = "heather@hotmail.com",
+                    FirstName = "Heather",
+                    LastName = "Currie",
+                    Street = "Made up Street",
+                    City = "Prestwick",
+                    PostCode = "KA9 JG1",
+                    RegisteredAt = DateTime.Now.AddYears(-2),
+                    EmailConfirmed = true,
+                    IsSuspended = false
+                };
+
+                //Adding user to users table
+                userManager.Create(registeredUser2, "Password123");
+                //Assign to RegisteredUser role
+                userManager.AddToRole(registeredUser2.Id, "RegisteredUser");
 
                 //------Creating Categories------
                 var cat1 = new Category() { Name = "Review" };
@@ -214,10 +233,38 @@ namespace OSwan_TheatreApp.Models
                     DatePosted = DateTime.Now,
                     ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser1,
-                    Category = cat1
+                    Category = cat1,
+                    Comments = new HashSet<Comment>()
+                    {
+                        new Comment() {Text = "This is a comment", Author = context.Users.First() }
+                    }
                 };
 
                 context.Posts.Add(post1);
+
+                context.Posts.Add(post1);
+
+                var post2 = new Post()
+                {
+                    Title = "Belfast",
+                    MainBody = "Went into this film assuming it was about the conflict/troubles but I was wrong… instead it’s about a family reacting to the troubles which in its own way is just as interesting. " +
+                    "For me there was too many sub stories which didn’t deliver but this is excused by the beautiful cinematography, I know it’s cliche but at times you really felt like you were in the streets and alleys with the characters and some shots in particular were brilliant with multiple characters in shot, in dynamic ways whilst all interacting with each other.",
+                    ImageUrl = null,
+                    DatePosted = DateTime.Now,
+                    ApprovalStatus = ApprovalStatus.TBC,
+                    User = registeredUser1,
+                    Category = cat1,
+                    Comments = new HashSet<Comment>()
+                    {
+                        new Comment() {Text = "This is a comment", Author = context.Users.First() },
+                        new Comment() {Text = "This is a comment", Author = context.Users.First() },
+                        new Comment() {Text = "This is another comment", Author = context.Users.First() }
+                    }
+                };
+
+                context.Posts.Add(post2);
+
+                context.Posts.Add(post2);
 
                 //saving changes to DB
                 context.SaveChanges();

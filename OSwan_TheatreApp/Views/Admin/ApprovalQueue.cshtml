@@ -36,7 +36,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    if (item.ApprovalStatus == OSwan_TheatreApp.Models.ApprovalStatus.TBC)
+    if (item.ApprovalStatus == ApprovalStatus.TBC)
     {
 <tr>
     <td>
@@ -61,9 +61,8 @@
         @Html.DisplayFor(modelItem => item.ApprovalStatus)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.PostId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.PostId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.PostId })
+        @Html.ActionLink("Approve/Decline", "Edit", new { id = item.PostId }) |
+        @Html.ActionLink("Delete Post", "DeletePost", new { id = item.PostId }) 
     </td>
 </tr>
     }

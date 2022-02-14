@@ -15,7 +15,7 @@ using OSwan_TheatreApp.Models.ViewModels;
 namespace OSwan_TheatreApp.Controllers
 {
     //Inherits from AccountController for login/registration functionality
-    [Authorize(Roles ="Admin")]//Only admins can access this controller
+    [Authorize(Roles = "Admin")]//Only admins can access this controller
     public class AdminController : AccountController
     {
 
@@ -117,7 +117,7 @@ namespace OSwan_TheatreApp.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult EditModerator(string id)
         {
@@ -386,6 +386,132 @@ namespace OSwan_TheatreApp.Controllers
 
             //Sending posts in a list to view
             return View(posts.ToList());
+        }
+
+        //This view will be used to have an overview of all posts where an admin can edit/delete everything
+        public ActionResult AllPosts()
+        {
+            //Retrieving and storing all posts whilst inclduing some properties
+            //Order all posts from date posted
+            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).OrderByDescending(p => p.DatePosted);
+
+            //Sending list of categories to view
+            ViewBag.Categories = db.Categories.ToList();
+
+            //Sending posts in a list to view
+            return View(posts.ToList());
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            //Ensuring the ID is not null
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Finding post by ID
+            Post post = db.Posts.Find(id);
+
+            //Further error catching
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", post.CategoryId);
+
+            //Send post to view
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, CategoryId, UserId, ApprovalStatus")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                //Update posts state to modified
+                db.Entry(post).State = EntityState.Modified;
+
+                //Approval status will be changed to approve as admin has edited
+                post.ApprovalStatus = ApprovalStatus.Approved;
+
+                //Updating date on post
+                post.DatePosted = DateTime.Now;
+
+                //Save changes to DB
+                db.SaveChanges();
+
+                return RedirectToAction("AllPosts");
+            }
+
+            return View(post);
+        }
+
+        public ActionResult PostDetails(int id)
+        {
+            //Search for desired post in db
+            Post post = db.Posts.Find(id);
+
+            //Finding and storing the user who created the post
+            var user = db.Users.Find(post.UserId);
+
+            //Finding the category the post belongs to
+            var category = db.Categories.Find(post.CategoryId);
+
+            //assign user to post
+            post.User = user;
+
+            //assign category to post
+            post.Category = category;
+
+            //send post model to view
+            return View(post);
+        }
+
+        public ActionResult DeletePost(int? id)
+        {
+            //if id is null then return bad request error
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find post that has been passed
+            Post post = db.Posts.Find(id);
+
+            //Find posts category
+            var category = db.Categories.Find(post.CategoryId);
+
+            //assigning navigational properties
+            post.Category = category;
+
+            //if post is null, throw error
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            //return delete view and send post
+            return View(post);
+        }
+
+        [HttpPost, ActionName("DeletePost")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Find post by id
+            Post post = db.Posts.Find(id);
+
+            //Remove post from DB
+            db.Posts.Remove(post);
+
+            //Save changes in DB
+            db.SaveChanges();
+
+            //Redirect to all posts view
+            return RedirectToAction("AllPosts");
         }
     }
 }
