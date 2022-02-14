@@ -28,12 +28,19 @@ namespace OSwan_TheatreApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Setting the date posted to current time of creation
                 post.DatePosted = DateTime.Now;
 
+                //Setting approval status to TBC (admin will have to approve)
+                post.ApprovalStatus = ApprovalStatus.TBC;
+
+                //Assigning userID to post
                 post.UserId = User.Identity.GetUserId();
 
+                //Adding created post to table
                 context.Posts.Add(post);
 
+                //Saving changes to DB
                 context.SaveChanges();
 
                 return RedirectToAction("BlogHome", "Home");

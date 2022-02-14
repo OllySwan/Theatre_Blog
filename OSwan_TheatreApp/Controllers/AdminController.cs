@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -372,6 +373,19 @@ namespace OSwan_TheatreApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ApprovalQueue()
+        {
+            //Retrieving and storing all posts whilst inclduing some properties
+            //Order all posts from date posted
+            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).OrderByDescending(p => p.DatePosted);
+
+            //Sending list of categories to view
+            ViewBag.Categories = db.Categories.ToList();
+
+            //Sending posts in a list to view
+            return View(posts.ToList());
         }
     }
 }

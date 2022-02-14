@@ -258,6 +258,7 @@
     <Content Include="Views\Member\CreatePost.cshtml" />
     <Content Include="Views\Home\BlogHome.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Admin\ApprovalQueue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
