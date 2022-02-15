@@ -413,6 +413,8 @@ namespace OSwan_TheatreApp.Controllers
             //Finding post by ID
             Post post = db.Posts.Find(id);
 
+            User user = db.Users.Find(post.UserId);
+
             //Further error catching
             if (post == null)
             {
@@ -421,24 +423,31 @@ namespace OSwan_TheatreApp.Controllers
 
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", post.CategoryId);
 
+
             //Send post to view
             return View(post);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, CategoryId, UserId, ApprovalStatus")] Post post)
+        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, CategoryId, UserId, User,ApprovalStatus")] Post post)
         {
+            User user = post.User;
+
             if (ModelState.IsValid)
             {
-                //Update posts state to modified
-                db.Entry(post).State = EntityState.Modified;
-
                 //Approval status will be changed to approve as admin has edited
                 post.ApprovalStatus = ApprovalStatus.Approved;
 
+                post.User = user;
+
+                //post.UserId = user.Id;
+
                 //Updating date on post
                 post.DatePosted = DateTime.Now;
+
+                //Update posts state to modified
+                db.Entry(post).State = EntityState.Modified;
 
                 //Save changes to DB
                 db.SaveChanges();

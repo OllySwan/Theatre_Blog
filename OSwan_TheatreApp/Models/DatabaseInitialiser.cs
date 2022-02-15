@@ -84,8 +84,9 @@ namespace OSwan_TheatreApp.Models
                         RegisteredAt = DateTime.Now.AddYears(-5),
                         EmailConfirmed = true,
                         IsSuspended = false,
-                        AdminStatus = AdminStatus.FullTime
-                        
+                        AdminStatus = AdminStatus.FullTime,
+                        Comments = new List<Comment>()
+
                     };
 
                     //Adding new admin to users table
@@ -111,7 +112,8 @@ namespace OSwan_TheatreApp.Models
                         RegisteredAt = DateTime.Now.AddYears(-3),
                         EmailConfirmed = true,
                         IsSuspended = false,
-                        ModType = ModType.Jr
+                        ModType = ModType.Jr,
+                        Comments = new List<Comment>()
                     };
 
                     //Adding new admin to users table
@@ -137,8 +139,9 @@ namespace OSwan_TheatreApp.Models
                         RegisteredAt = DateTime.Now.AddYears(-1),
                         EmailConfirmed = true,
                         IsSuspended = false,
-                        TrustedUser = TrustedUser.Trusted
-                        
+                        TrustedUser = TrustedUser.Trusted,
+                        Comments = new List<Comment>()
+
                     };
 
                     //Adding new admin to users table
@@ -163,7 +166,8 @@ namespace OSwan_TheatreApp.Models
                         PostCode = "Ka7 2J5",
                         RegisteredAt = DateTime.Now.AddYears(-2),
                         EmailConfirmed = true,
-                        IsSuspended = false
+                        IsSuspended = false,
+                        Comments = new List<Comment>()
                     };
 
                     //Adding new admin to users table
@@ -187,7 +191,8 @@ namespace OSwan_TheatreApp.Models
                     PostCode = "Ka7 2J5",
                     RegisteredAt = DateTime.Now.AddYears(-2),
                     EmailConfirmed = true,
-                    IsSuspended = false
+                    IsSuspended = false,
+                    Comments = new List<Comment>()
                 };
 
                 //Adding user to users table
@@ -207,7 +212,8 @@ namespace OSwan_TheatreApp.Models
                     PostCode = "KA9 JG1",
                     RegisteredAt = DateTime.Now.AddYears(-2),
                     EmailConfirmed = true,
-                    IsSuspended = false
+                    IsSuspended = false,
+                    Comments = new List<Comment>()
                 };
 
                 //Adding user to users table
@@ -234,13 +240,12 @@ namespace OSwan_TheatreApp.Models
                     ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser1,
                     Category = cat1,
-                    Comments = new HashSet<Comment>()
+                    Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", Author = context.Users.First() }
+                        new Comment() {Text = "This is a comment", User = registeredUser1 }
                     }
                 };
 
-                context.Posts.Add(post1);
 
                 context.Posts.Add(post1);
 
@@ -254,15 +259,15 @@ namespace OSwan_TheatreApp.Models
                     ApprovalStatus = ApprovalStatus.TBC,
                     User = registeredUser1,
                     Category = cat1,
-                    Comments = new HashSet<Comment>()
+                    Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", Author = context.Users.First() },
-                        new Comment() {Text = "This is a comment", Author = context.Users.First() },
-                        new Comment() {Text = "This is another comment", Author = context.Users.First() }
+                        new Comment() {Text = "This is a comment", User = registeredUser1},
+                        new Comment() {Text = "This is a comment", User = registeredUser1 },
+                        new Comment() {Text = "This is another comment", User = registeredUser1 }
                     }
                 };
 
-                context.Posts.Add(post2);
+                
 
                 context.Posts.Add(post2);
 

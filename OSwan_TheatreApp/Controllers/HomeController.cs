@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using OSwan_TheatreApp.Models;
+using OSwan_TheatreApp.Models.ViewModels;
 
 namespace OSwan_TheatreApp.Controllers
 {
@@ -61,5 +63,49 @@ namespace OSwan_TheatreApp.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult CreateComment()
+        {
+            PostCommentViewModel postCommentVM = new PostCommentViewModel();
+
+
+            return View(postCommentVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment( PostCommentViewModel model)
+        {
+            //Error checking by checking model that has been passed is valid
+            if (ModelState.IsValid)
+            {
+                var post = context.Posts.Find(model.Id);
+
+                //Constructing a comment
+                var comment = new Comment();
+
+                comment.Post = post;
+                comment.PostId = post.PostId;
+                comment.UserId = post.UserId;
+                comment.User = post.User;
+                comment.Text = model.Text;
+                comment.Date = DateTime.Now;
+
+                
+                comment.Post = post;
+                
+                //Add comment to comments table
+                context.Comments.Add(comment);
+
+                //Saving changes to DB
+                context.SaveChanges();
+
+                return RedirectToAction("BlogHome", "Home");
+
+            }
+            return View(model);
+        }
+
     }
 }

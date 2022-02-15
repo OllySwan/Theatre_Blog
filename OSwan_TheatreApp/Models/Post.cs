@@ -11,7 +11,7 @@ namespace OSwan_TheatreApp.Models
     {
         public Post()
         {
-            this.Comments = new HashSet<Comment>();
+            this.Comments = new List<Comment>();
         }
 
         [Key]
@@ -46,7 +46,7 @@ namespace OSwan_TheatreApp.Models
 
 
         //Navigational property Comments
-        public virtual ICollection<Comment> Comments { get; set; } //Reperesents the many
+        public virtual List<Comment> Comments { get; set; } //Reperesents the many
 
     }
 

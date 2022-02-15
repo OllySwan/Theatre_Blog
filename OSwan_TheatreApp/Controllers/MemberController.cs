@@ -24,7 +24,7 @@ namespace OSwan_TheatreApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost([Bind(Include ="PostId, UserId, Title, User ,MainBody, DatePublished, CategoryId")]Post post)
+        public ActionResult CreatePost([Bind(Include = "PostId, UserId, Title, User ,MainBody, DatePublished, CategoryId")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -50,5 +50,7 @@ namespace OSwan_TheatreApp.Controllers
 
             return View(post);
         }
+
+       
     }
 }

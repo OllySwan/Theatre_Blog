@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace OSwan_TheatreApp.Models
 {
@@ -36,7 +37,8 @@ namespace OSwan_TheatreApp.Models
         [Display(Name ="Suspended")]
         public bool IsSuspended { get; set; }
 
-
+        //Navigational property Comments
+        public virtual List<Comment> Comments { get; set; } //Reperesents the many
 
         //User Role allocation
         private ApplicationUserManager userManager;
