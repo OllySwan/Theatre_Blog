@@ -19,6 +19,8 @@ namespace OSwan_TheatreApp.Models
         [Required]
         public string Text { get; set; }
 
+        public string CommentAuthor { get; set; }
+
         public DateTime Date { get; set; }
 
         [ForeignKey("User")]

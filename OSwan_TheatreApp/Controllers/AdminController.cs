@@ -415,6 +415,8 @@ namespace OSwan_TheatreApp.Controllers
 
             User user = db.Users.Find(post.UserId);
 
+            
+
             //Further error catching
             if (post == null)
             {
@@ -430,24 +432,23 @@ namespace OSwan_TheatreApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, CategoryId, UserId, User,ApprovalStatus")] Post post)
+        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, UserId, CategoryId,ApprovalStatus")] Post post)
         {
-            User user = post.User;
+
+            Post dbPost = db.Posts.Find(post.PostId);
 
             if (ModelState.IsValid)
             {
-                //Approval status will be changed to approve as admin has edited
-                post.ApprovalStatus = ApprovalStatus.Approved;
-
-                post.User = user;
-
-                //post.UserId = user.Id;
+                //Approval status updated
+                dbPost.ApprovalStatus = post.ApprovalStatus;
 
                 //Updating date on post
-                post.DatePosted = DateTime.Now;
+                dbPost.DatePosted = DateTime.Now;
 
                 //Update posts state to modified
-                db.Entry(post).State = EntityState.Modified;
+                db.Entry(dbPost).State = EntityState.Modified;
+
+                //UpdateModel(post);//Update user details useing the values from the model
 
                 //Save changes to DB
                 db.SaveChanges();
@@ -515,6 +516,10 @@ namespace OSwan_TheatreApp.Controllers
 
             //Remove post from DB
             db.Posts.Remove(post);
+
+            //Storing comments from post ID and removing them when post is removed (Cascading delete)
+            var comments = db.Comments.Where(c => c.CommentId == post.PostId).ToList();
+            db.Comments.RemoveRange(comments);
 
             //Save changes in DB
             db.SaveChanges();

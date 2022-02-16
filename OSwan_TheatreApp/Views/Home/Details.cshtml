@@ -80,7 +80,7 @@
                     @comment.Text
                     @if (comment.UserId != null)
                     {
-                        @: (by @comment.User.FirstName)
+                        @: (by @comment.CommentAuthor)
                     }
                 </li>
             }

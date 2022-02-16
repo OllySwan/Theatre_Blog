@@ -69,6 +69,7 @@ namespace OSwan_TheatreApp.Controllers
         {
             PostCommentViewModel postCommentVM = new PostCommentViewModel();
 
+            
 
             return View(postCommentVM);
         }
@@ -80,6 +81,7 @@ namespace OSwan_TheatreApp.Controllers
             //Error checking by checking model that has been passed is valid
             if (ModelState.IsValid)
             {
+                //storing post finding/using modelId
                 var post = context.Posts.Find(model.Id);
 
                 //Constructing a comment
@@ -90,9 +92,8 @@ namespace OSwan_TheatreApp.Controllers
                 comment.UserId = post.UserId;
                 comment.User = post.User;
                 comment.Text = model.Text;
+                comment.CommentAuthor = model.CommentAuthor;
                 comment.Date = DateTime.Now;
-
-                
                 comment.Post = post;
                 
                 //Add comment to comments table

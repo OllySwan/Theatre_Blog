@@ -15,5 +15,7 @@ namespace OSwan_TheatreApp.Models.ViewModels
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
+        public string CommentAuthor { get; set; }
+
     }
 }

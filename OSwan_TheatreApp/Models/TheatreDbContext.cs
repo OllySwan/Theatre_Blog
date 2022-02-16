@@ -29,6 +29,6 @@ namespace OSwan_TheatreApp.Models
             {
                 return new TheatreDbContext();
             }
-        
+
     }
 }
