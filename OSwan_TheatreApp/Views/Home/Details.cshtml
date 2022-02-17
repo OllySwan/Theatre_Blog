@@ -73,18 +73,24 @@
 
     @if (Model.Comments.Any())
     {
-        <ul>
-            @foreach (var comment in Model.Comments)
+<ul>
+    @foreach (var comment in Model.Comments)
+    {
+    <li>
+        @comment.Text
+        @if (comment.UserId != null)
+        {
+            @: (by @comment.CommentAuthor)
+            if(User.IsInRole("Moderator") || User.IsInRole("Admin"))
             {
-                <li>
-                    @comment.Text
-                    @if (comment.UserId != null)
-                    {
-                        @: (by @comment.CommentAuthor)
-                    }
-                </li>
+                <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
             }
-        </ul>
+            
+        }
+    </li>
+        
+    }
+</ul>
     }
     else
     {

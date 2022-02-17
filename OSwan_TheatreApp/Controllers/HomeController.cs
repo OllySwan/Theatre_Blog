@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -106,6 +107,48 @@ namespace OSwan_TheatreApp.Controllers
 
             }
             return View(model);
+        }
+
+
+        // GET: Mod
+        [Authorize(Roles = "Moderator, Admin")]//Only admins & Moderators can access this action
+        [HttpGet]
+        public ActionResult DeleteComment(int? id)
+        {
+            //if id is null then return bad request error
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find post that has been passed
+            Comment comment = context.Comments.Find(id);
+
+            //if comment is null, throw error
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            //return delete view and send comment
+            return View(comment);
+        }
+
+        [HttpPost, ActionName("DeleteComment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(int id)
+        {
+            //Find comment by id
+            Comment comment = context.Comments.Find(id);
+
+            //Remove comment from DB
+            context.Comments.Remove(comment);
+
+            //Save changes in DB
+            context.SaveChanges();
+
+            //Redirect to all posts view
+            return RedirectToAction("BlogHome");
         }
 
     }

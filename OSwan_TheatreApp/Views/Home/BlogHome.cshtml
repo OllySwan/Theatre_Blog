@@ -54,6 +54,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DatePosted)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
             <th></th>
         </tr>
 
@@ -61,29 +64,32 @@
         {
             if (item.ApprovalStatus == ApprovalStatus.Approved)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MainBody)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatePosted)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.PostId })
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MainBody)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.PostId })
+        </td>
+    </tr>
             }
         }
 
