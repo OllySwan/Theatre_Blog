@@ -434,13 +434,22 @@ namespace OSwan_TheatreApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, UserId, CategoryId,ApprovalStatus")] Post post)
         {
-
+            //finding and storing original copy of post
             Post dbPost = db.Posts.Find(post.PostId);
 
             if (ModelState.IsValid)
             {
                 //Approval status updated
                 dbPost.ApprovalStatus = post.ApprovalStatus;
+
+                //Updating post title
+                dbPost.Title = post.Title;
+
+                //Setting new main body
+                dbPost.MainBody = post.MainBody;
+
+                //Setting new categoryID
+                dbPost.CategoryId = post.CategoryId;
 
                 //Updating date on post
                 dbPost.DatePosted = DateTime.Now;
