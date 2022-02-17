@@ -53,12 +53,22 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-default" onclick="return ConfirmationDialog()" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    function ConfirmationDialog() {
+        if (confirm("Are you sure you want to delete?"))
+            return true;
+        else
+            return false;
+    }
+</script>

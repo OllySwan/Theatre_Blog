@@ -151,5 +151,17 @@ namespace OSwan_TheatreApp.Controllers
             return RedirectToAction("BlogHome");
         }
 
+        public ActionResult AnnouncementOfTheDay()
+        {
+            //storing all posts that have a category of announcment and ordering them by date
+            var announcements = context.Posts.Where(p => p.CategoryId == 2).OrderByDescending(p => p.DatePosted);
+
+            //Storing latest announcement to send to view
+            var announcement = announcements.FirstOrDefault();
+
+            //Sending latest announcement to view
+            return View(announcement);
+        }
+
     }
 }

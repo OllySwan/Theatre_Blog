@@ -533,6 +533,9 @@ namespace OSwan_TheatreApp.Controllers
             //Save changes in DB
             db.SaveChanges();
 
+            //tempdata for message
+            TempData["AlertMessage"] = "Are you sure you want to delete this post?";
+
             //Redirect to all posts view
             return RedirectToAction("AllPosts");
         }

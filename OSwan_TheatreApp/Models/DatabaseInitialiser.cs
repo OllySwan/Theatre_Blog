@@ -236,7 +236,7 @@ namespace OSwan_TheatreApp.Models
                     MainBody = "Went into this film assuming it was about the conflict/troubles but I was wrong… instead it’s about a family reacting to the troubles which in its own way is just as interesting. " +
                     "For me there was too many sub stories which didn’t deliver but this is excused by the beautiful cinematography, I know it’s cliche but at times you really felt like you were in the streets and alleys with the characters and some shots in particular were brilliant with multiple characters in shot, in dynamic ways whilst all interacting with each other.",
                     ImageUrl = null,
-                    DatePosted = DateTime.Now,
+                    DatePosted = DateTime.Now.AddDays(-3),
                     ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser1,
                     Category = cat1,
@@ -255,7 +255,7 @@ namespace OSwan_TheatreApp.Models
                     MainBody = "Went into this film assuming it was about the conflict/troubles but I was wrong… instead it’s about a family reacting to the troubles which in its own way is just as interesting. " +
                     "For me there was too many sub stories which didn’t deliver but this is excused by the beautiful cinematography, I know it’s cliche but at times you really felt like you were in the streets and alleys with the characters and some shots in particular were brilliant with multiple characters in shot, in dynamic ways whilst all interacting with each other.",
                     ImageUrl = null,
-                    DatePosted = DateTime.Now,
+                    DatePosted = DateTime.Now.AddDays(-2),
                     ApprovalStatus = ApprovalStatus.TBC,
                     User = registeredUser1,
                     Category = cat1,
@@ -270,6 +270,49 @@ namespace OSwan_TheatreApp.Models
                 
 
                 context.Posts.Add(post2);
+
+                //------Seeding two announcements------
+
+                var post3 = new Post()
+                {
+                    Title = "Old",
+                    MainBody = "Today there is no mince and tatties",
+                    ImageUrl = null,
+                    DatePosted = DateTime.Now.AddYears(-1),
+                    ApprovalStatus = ApprovalStatus.Approved,
+                    User = registeredUser1,
+                    Category = cat3,
+                    Comments = new List<Comment>()
+                    {
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
+                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie" }
+                    }
+                };
+
+
+
+                context.Posts.Add(post3);
+
+
+                var post4 = new Post()
+                {
+                    Title = "new",
+                    MainBody = "Today there is mince and tatties",
+                    ImageUrl = null,
+                    DatePosted = DateTime.Now,
+                    ApprovalStatus = ApprovalStatus.Approved,
+                    User = registeredUser1,
+                    Category = cat3,
+                    Comments = new List<Comment>()
+                    {
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
+                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie" }
+                    }
+                };
+
+                context.Posts.Add(post4);
 
                 //saving changes to DB
                 context.SaveChanges();
