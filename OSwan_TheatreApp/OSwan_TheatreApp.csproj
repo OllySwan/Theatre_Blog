@@ -260,13 +260,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\assistance.png" />
     <Content Include="Images\dev1.svg" />
     <Content Include="Images\dev2.svg" />
     <Content Include="Images\dev3.svg" />
     <Content Include="Images\favicon.png" />
     <Content Include="Images\Local_Theatre_Company_Logo.jpg" />
+    <Content Include="Images\mail.png" />
+    <Content Include="Images\megaphone.png" />
     <Content Include="Images\Richie_2.png" />
     <Content Include="Images\shield.png" />
+    <Content Include="Images\telephone.png" />
     <Content Include="Images\undraw_videographer_nnc7 %281%29.svg" />
     <Content Include="Images\videographer.png" />
     <Content Include="Scripts\bootstrap.js" />
