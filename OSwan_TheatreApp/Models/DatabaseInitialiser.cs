@@ -302,7 +302,7 @@ namespace OSwan_TheatreApp.Models
                     ImageUrl = null,
                     DatePosted = DateTime.Now,
                     ApprovalStatus = ApprovalStatus.Approved,
-                    User = registeredUser1,
+                    User = registeredUser2,
                     Category = cat3,
                     Comments = new List<Comment>()
                     {

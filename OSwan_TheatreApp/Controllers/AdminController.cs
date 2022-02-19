@@ -359,8 +359,29 @@ namespace OSwan_TheatreApp.Controllers
                 return HttpNotFound();
             }
 
+
+            //Storing userID
+            var userID = User.Identity.GetUserId();
+
+            //Storing posts that match userID
+            var posts = db.Posts.Where(p => p.UserId == id).ToList();
+
+            //Removing all posts that the user posted from DB
+            db.Posts.RemoveRange(posts);
+
+            //Storing deleted users comments in list
+            var comments = db.Comments.Where(c => c.UserId == id).ToList();
+
+            //removing deleted users comments
+            db.Comments.RemoveRange(comments);
+
+            db.SaveChanges();
+
             //Delete user
             await UserManager.DeleteAsync(user);
+
+            //Saving changes to DB
+            db.SaveChanges();
 
             return RedirectToAction("Index", "Admin");
         }
