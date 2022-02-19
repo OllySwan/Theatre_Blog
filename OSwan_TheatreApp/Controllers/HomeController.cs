@@ -100,6 +100,15 @@ namespace OSwan_TheatreApp.Controllers
                 //Add comment to comments table
                 context.Comments.Add(comment);
 
+                //Storing userID
+                var userID = User.Identity.GetUserId();
+
+                //Finding user by ID
+                var user = context.Users.Find(userID);
+
+                //Adding comment to users comment list
+                user.Comments.Add(comment);
+
                 //Saving changes to DB
                 context.SaveChanges();
 

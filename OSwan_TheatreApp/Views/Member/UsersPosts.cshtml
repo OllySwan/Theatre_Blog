@@ -4,7 +4,8 @@
     ViewBag.Title = "UsersPosts";
 }
 
-<h2>UsersPosts</h2>
+<h2><u>Your Posts</u></h2>
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MainBody)
+            Text
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
