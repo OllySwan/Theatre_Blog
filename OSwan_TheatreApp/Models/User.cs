@@ -38,6 +38,9 @@ namespace OSwan_TheatreApp.Models
         public bool IsSuspended { get; set; }
 
         //Navigational property Comments
+        public virtual List<Post> Posts { get; set; } //Reperesents the many
+
+        //Navigational property Comments
         public virtual List<Comment> Comments { get; set; } //Reperesents the many
 
         //User Role allocation

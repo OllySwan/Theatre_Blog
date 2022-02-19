@@ -268,6 +268,7 @@
     <Content Include="Images\Local_Theatre_Company_Logo.jpg" />
     <Content Include="Images\mail.png" />
     <Content Include="Images\megaphone.png" />
+    <Content Include="Images\people.svg" />
     <Content Include="Images\Richie_2.png" />
     <Content Include="Images\shield.png" />
     <Content Include="Images\telephone.png" />
@@ -372,6 +373,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\AnnouncementOfTheDay.cshtml" />
+    <Content Include="Views\Member\UserProfile.cshtml" />
+    <Content Include="Views\Member\UsersPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

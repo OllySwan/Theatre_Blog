@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
+using System.Web.Security;
 using OSwan_TheatreApp.Models.ViewModels;
-
+using Microsoft.AspNet.Identity.Owin;
 
 namespace OSwan_TheatreApp.Controllers
 {
@@ -16,8 +18,10 @@ namespace OSwan_TheatreApp.Controllers
 
         // GET: Member
         public ActionResult CreatePost()
+
         {
             ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name");
+
 
             return View();
         }
@@ -51,6 +55,41 @@ namespace OSwan_TheatreApp.Controllers
             return View(post);
         }
 
-       
+        public ActionResult UserProfile()
+        {
+            //If you open app already signed in USER will be null
+            //Fresh log in for this to work.
+
+            //Store current users ID 
+            string currentUserID = User.Identity.GetUserId();
+
+            //implement user manager functionality
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            //Finding user via ID
+            User user = userManager.FindById(currentUserID);
+
+            //This solved errors with USER being null
+            user.Id = currentUserID;
+
+            return View(user);
+        }
+
+        public ActionResult UsersPosts()
+        {
+            //Get all posts from table
+            //Including FK's
+            var posts = context.Posts.Include(p => p.Category).Include(p => p.User);
+
+            //Storing userID
+            var userID = User.Identity.GetUserId();
+
+            //Narrowing down posts that will be sent to view
+            //Only the desired users posts will be sent
+            posts = posts.Where(p => p.UserId == userID);
+
+            return View(posts.ToList());
+        }
+
     }
 }

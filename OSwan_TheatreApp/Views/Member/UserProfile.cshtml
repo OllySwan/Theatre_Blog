@@ -1,0 +1,66 @@
+﻿@model OSwan_TheatreApp.Models.User
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<style>
+
+    h1 {
+        padding-top: 50px;
+    }
+
+
+
+    body {
+        background-color: #b1b1b1;
+
+    }
+
+    .containerflex{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .img-col{
+        flex-basis: 40%
+    }
+
+    ul{
+        list-style-type: none;
+    }
+
+    li {
+        padding-top: 5px;
+    }
+</style>
+
+
+<h2>Welcome to your profile!</h2>
+
+
+<p>
+    @Html.ActionLink("View your posts", "UsersPosts", "Member")
+</p>
+
+<div class="containerflex">
+    <div class="text-col">
+        <ul>
+            <li>
+                Hey <u>@Html.DisplayFor(model => model.FirstName)</u>, here are some of your profile stats...
+            </li>           
+            <li>
+                Wow you have posted <b>@Html.DisplayFor(model => model.Comments.Count)</b> comments!
+            </li>
+            <li>
+                Wow you have posted <b>@Html.DisplayFor(model => model.Posts.Count)</b> posts!
+            </li>
+        </ul>
+    </div>
+
+    <div class="img-col">
+        <img src="~/Images/people.svg" class="img-responsive margin" style="width:100%;height:450px" alt="Image" />
+    </div>
+
+</div>
