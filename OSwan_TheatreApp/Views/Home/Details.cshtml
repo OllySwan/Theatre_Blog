@@ -46,10 +46,18 @@
         <dt>
             @Html.DisplayNameFor(model => model.ImageUrl)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
+        @if (Model.ImageUrl != null)
+        {
+            <dd>
+                <img src="@Url.Content("~/Images/Uploaded/" + Model.UserId + Model.Title +".jpg")" alt="@Model.Title" height="220" />
+            </dd>
+        }
+        else
+        {
+             <dd>
+                This post has no image attatched
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.DatePosted)

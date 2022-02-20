@@ -10,6 +10,7 @@ using System.Net;
 using System.Web.Security;
 using OSwan_TheatreApp.Models.ViewModels;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
 
 namespace OSwan_TheatreApp.Controllers
 {
@@ -29,7 +30,7 @@ namespace OSwan_TheatreApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost([Bind(Include = "PostId, UserId, Title, User ,MainBody, DatePublished, CategoryId")] Post post)
+        public ActionResult CreatePost([Bind(Include = "PostId, UserId, Title, User ,MainBody, DatePublished, CategoryId")] Post post, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -44,6 +45,25 @@ namespace OSwan_TheatreApp.Controllers
 
                 //Adding created post to table
                 context.Posts.Add(post);
+
+
+
+                //Not using a viewmodel here so had trouble with implementation of "postID"
+                //To improvise and keep the filename unique I used UserID + Post title 
+                int dotPosition = Path.GetFileName(file.FileName).IndexOf(".");
+
+                string fileExtension = Path.GetFileName(file.FileName).Substring(dotPosition);
+
+                var fileName = post.UserId + post.Title + fileExtension;
+
+                var path = Path.Combine(Server.MapPath("~/Images/Uploaded"), fileName);
+                file.SaveAs(path);
+
+                post.ImageUrl = path;
+
+
+
+
 
                 //Saving changes to DB
                 context.SaveChanges();

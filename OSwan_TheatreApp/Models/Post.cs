@@ -23,6 +23,8 @@ namespace OSwan_TheatreApp.Models
         [DataType(DataType.MultilineText)]
         public string MainBody { get; set; }
 
+        [DataType(DataType.Upload)]
+        [Display(Name ="Image")]
         public string ImageUrl { get; set; }
 
         [Display(Name ="Date Posted")]

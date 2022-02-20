@@ -466,6 +466,9 @@ namespace OSwan_TheatreApp.Controllers
                 //Updating post title
                 dbPost.Title = post.Title;
 
+                //Applying image
+                dbPost.ImageUrl = post.ImageUrl;
+
                 //Setting new main body
                 dbPost.MainBody = post.MainBody;
 
@@ -474,6 +477,8 @@ namespace OSwan_TheatreApp.Controllers
 
                 //Updating date on post
                 dbPost.DatePosted = DateTime.Now;
+
+                dbPost.ImageUrl = "assigned";
 
                 //Update posts state to modified
                 db.Entry(dbPost).State = EntityState.Modified;
