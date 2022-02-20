@@ -378,6 +378,7 @@
     <Content Include="Views\Member\UsersPosts.cshtml" />
     <Content Include="Views\Member\Details.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Member\DeletePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

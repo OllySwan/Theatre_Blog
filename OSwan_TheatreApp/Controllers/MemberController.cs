@@ -177,5 +177,56 @@ namespace OSwan_TheatreApp.Controllers
             return View(post);
         }
 
+        public ActionResult DeletePost(int? id)
+        {
+            //if id is null then return bad request error
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find post that has been passed
+            Post post = context.Posts.Find(id);
+
+            //Find posts category
+            var category = context.Categories.Find(post.CategoryId);
+
+            //assigning navigational properties
+            post.Category = category;
+
+            //if post is null, throw error
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            //return delete view and send post
+            return View(post);
+        }
+
+        [HttpPost, ActionName("DeletePost")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Find post by id
+            Post post = context.Posts.Find(id);
+
+            //Remove post from DB
+            context.Posts.Remove(post);
+
+            //Storing comments from post ID and removing them when post is removed (Cascading delete)
+            var comments = context.Comments.Where(c => c.CommentId == post.PostId).ToList();
+            context.Comments.RemoveRange(comments);
+
+            //Save changes in DB
+            context.SaveChanges();
+
+            //tempdata for message
+            TempData["AlertMessage"] = "Are you sure you want to delete this post?";
+
+            //Redirect to all posts view
+            return RedirectToAction("UsersPosts");
+        }
+
     }
 }
