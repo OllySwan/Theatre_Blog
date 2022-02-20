@@ -376,6 +376,8 @@
     <Content Include="Views\Home\AnnouncementOfTheDay.cshtml" />
     <Content Include="Views\Member\UserProfile.cshtml" />
     <Content Include="Views\Member\UsersPosts.cshtml" />
+    <Content Include="Views\Member\Details.cshtml" />
+    <Content Include="Views\Member\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

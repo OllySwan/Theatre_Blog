@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Web.Mvc;
+using System.Net;
 using System.Web.Security;
 using OSwan_TheatreApp.Models.ViewModels;
 using Microsoft.AspNet.Identity.Owin;
@@ -89,6 +90,91 @@ namespace OSwan_TheatreApp.Controllers
             posts = posts.Where(p => p.UserId == userID);
 
             return View(posts.ToList());
+        }
+
+        public ActionResult Details(int? id)
+        {
+            //Error checking
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Finding post with the passed ID
+            Post post = context.Posts.Find(id);
+
+            //Further error checking
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Send post to view
+            return View(post);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            //Ensuring the ID is not null
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Finding post by ID
+            Post post = context.Posts.Find(id);
+
+            User user = context.Users.Find(post.UserId);
+
+
+
+            //Further error catching
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name", post.CategoryId);
+
+
+            //Send post to view
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, UserId, CategoryId,ApprovalStatus")] Post post)
+        {
+            //finding and storing original copy of post
+            Post dbPost = context.Posts.Find(post.PostId);
+
+            if (ModelState.IsValid)
+            {
+                //Approval status updated
+                dbPost.ApprovalStatus = ApprovalStatus.Approved;
+
+                //Updating post title
+                dbPost.Title = post.Title;
+
+                //Setting new main body
+                dbPost.MainBody = post.MainBody;
+
+                //Setting new categoryID
+                dbPost.CategoryId = post.CategoryId;
+
+                //Updating date on post
+                dbPost.DatePosted = DateTime.Now;
+
+                //Update posts state to modified
+                context.Entry(dbPost).State = EntityState.Modified;
+
+                //Save changes to DB
+                context.SaveChanges();
+
+                return RedirectToAction("UsersPosts");
+            }
+
+            return View(post);
         }
 
     }

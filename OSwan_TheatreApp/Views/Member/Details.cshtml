@@ -66,34 +66,34 @@
 
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("Post Comment","CreateComment", new { id = Model.PostId})
+        @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
 
     }
 
 
     @if (Model.Comments.Any())
     {
-<ul>
-    @foreach (var comment in Model.Comments)
-    {
-        
-    <li>
-        @comment.Text
-        @if (comment.UserId != null)
-        {
-            
-            @: (by @comment.CommentAuthor)
-            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+        <ul>
+            @foreach (var comment in Model.Comments)
             {
-                <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
-            }
-            <hr />
 
-        }
-    </li>
-        
-    }
-</ul>
+                <li>
+                    @comment.Text
+                    @if (comment.UserId != null)
+                    {
+
+                        @: (by @comment.CommentAuthor)
+                        if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                        {
+                            <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
+                        }
+                        <hr />
+
+                    }
+                </li>
+
+            }
+        </ul>
     }
     else
     {
