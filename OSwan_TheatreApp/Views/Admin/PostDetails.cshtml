@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
+            <img src="@Url.Content("~/Images/Uploaded/" + Model.CategoryId + Model.Title +".jpg")" alt="@Model.Title" style="height: 350px; width:500px;" class="img-responsive img-rounded" />
         </dd>
 
         <dt>

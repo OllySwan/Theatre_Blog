@@ -398,6 +398,7 @@ namespace OSwan_TheatreApp.Controllers
 
         public ActionResult ApproveComment(int? id)
         {
+            //Error catching
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -412,7 +413,7 @@ namespace OSwan_TheatreApp.Controllers
             //Saving changes to DB
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AllComments", "Admin");
         }
 
         public ActionResult DeclineComment(int? id)
@@ -426,12 +427,12 @@ namespace OSwan_TheatreApp.Controllers
             Comment comment = db.Comments.Find(id);
 
             //approving comment status
-            comment.commentApprovalStatus = commentApprovalStatus.Approved;
+            comment.commentApprovalStatus = commentApprovalStatus.Declined;
 
             //Saving changes to DB
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("AllComments", "Admin");
         }
 
         //This view will be used to have an overview of all posts where an admin can edit/delete everything
@@ -523,7 +524,7 @@ namespace OSwan_TheatreApp.Controllers
         public ActionResult AllComments()
         {
             //Get all the comments and order them by date
-            var comments = db.Comments.OrderBy(c => c.Date).ToList();
+            var comments = db.Comments.OrderByDescending(c => c.Date).ToList();
 
             //Return the list of comments to the view
             return View(comments);
@@ -599,6 +600,21 @@ namespace OSwan_TheatreApp.Controllers
 
             //Redirect to all posts view
             return RedirectToAction("AllPosts");
+        }
+
+        public ActionResult DeleteComment(int id)
+        {
+            //Find comment by id
+            Comment comment = db.Comments.Find(id);
+
+            //Remove comment from DB
+            db.Comments.Remove(comment);
+
+            //Save changes in DB
+            db.SaveChanges();
+
+            //Redirect to all posts view
+            return RedirectToAction("BlogHome");
         }
 
 

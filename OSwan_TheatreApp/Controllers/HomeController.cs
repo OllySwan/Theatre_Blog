@@ -68,6 +68,7 @@ namespace OSwan_TheatreApp.Controllers
         [HttpGet]
         public ActionResult CreateComment()
         {
+
             PostCommentViewModel postCommentVM = new PostCommentViewModel();
 
             

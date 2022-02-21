@@ -235,7 +235,7 @@ namespace OSwan_TheatreApp.Models
                     Title = "Belfast",
                     MainBody = "Went into this film assuming it was about the conflict/troubles but I was wrong… instead it’s about a family reacting to the troubles which in its own way is just as interesting. " +
                     "For me there was too many sub stories which didn’t deliver but this is excused by the beautiful cinematography, I know it’s cliche but at times you really felt like you were in the streets and alleys with the characters and some shots in particular were brilliant with multiple characters in shot, in dynamic ways whilst all interacting with each other.",
-                    ImageUrl = null,
+                    ImageUrl = "Image uploaded",
                     DatePosted = DateTime.Now.AddDays(-3),
                     ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser1,
@@ -251,17 +251,16 @@ namespace OSwan_TheatreApp.Models
 
                 var post2 = new Post()
                 {
-                    Title = "Belfast",
-                    MainBody = "Went into this film assuming it was about the conflict/troubles but I was wrong… instead it’s about a family reacting to the troubles which in its own way is just as interesting. " +
-                    "For me there was too many sub stories which didn’t deliver but this is excused by the beautiful cinematography, I know it’s cliche but at times you really felt like you were in the streets and alleys with the characters and some shots in particular were brilliant with multiple characters in shot, in dynamic ways whilst all interacting with each other.",
-                    ImageUrl = null,
+                    Title = "Ex Machina",
+                    MainBody = "After finally seeing this film about the misogynistic relationship between men and women in modern society, with an added layer of a science fiction thought experiment based upon the complexities of A.I. and humanities eventual future, I can safely say, without a shred of doubt, that Oscar Isaac tore up that dance floor",
+                    ImageUrl = "Image uploaded",
                     DatePosted = DateTime.Now.AddDays(-2),
-                    ApprovalStatus = ApprovalStatus.TBC,
+                    ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser1,
                     Category = cat1,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is a comment", User = registeredUser2, CommentAuthor = "Heather", commentApprovalStatus = commentApprovalStatus.Approved},
                         new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
                         new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
@@ -284,7 +283,7 @@ namespace OSwan_TheatreApp.Models
                     Category = cat3,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is a comment", User = registeredUser2, CommentAuthor = "Heather", commentApprovalStatus = commentApprovalStatus.Approved},
                         new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
                         new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
@@ -297,18 +296,18 @@ namespace OSwan_TheatreApp.Models
 
                 var post4 = new Post()
                 {
-                    Title = "new",
-                    MainBody = "Today there is mince and tatties",
-                    ImageUrl = null,
+                    Title = "Broken Lift",
+                    MainBody = "Good morning everyone, sadly our trusty lift has broken and will be out of service for some time... the maintenance is out of the country just now, please use the stairs.",
+                    ImageUrl = "Image uploaded",
                     DatePosted = DateTime.Now,
                     ApprovalStatus = ApprovalStatus.Approved,
                     User = registeredUser2,
                     Category = cat3,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
-                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
+                        new Comment() {Text = "Oh no the lift is broken :(", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "Looks like I will be using the stairs", User = registeredUser2, CommentAuthor = "Heather", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "Oh no!", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
                 };
 

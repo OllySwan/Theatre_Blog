@@ -272,8 +272,12 @@
     <Content Include="Images\Richie_2.png" />
     <Content Include="Images\rules.svg" />
     <Content Include="Images\shield.png" />
+    <Content Include="Images\suspended.svg" />
     <Content Include="Images\telephone.png" />
     <Content Include="Images\undraw_videographer_nnc7 %281%29.svg" />
+    <Content Include="Images\Uploaded\1Belfast.jpg" />
+    <Content Include="Images\Uploaded\1Ex Machina.jpg" />
+    <Content Include="Images\Uploaded\2Broken Lift.jpg" />
     <Content Include="Images\videographer.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -382,7 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Uploaded\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

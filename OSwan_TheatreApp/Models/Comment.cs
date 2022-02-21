@@ -21,6 +21,8 @@ namespace OSwan_TheatreApp.Models
 
         public string CommentAuthor { get; set; }
 
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:d}")] //Short date, may change later
         public DateTime Date { get; set; }
 
         public commentApprovalStatus commentApprovalStatus { get; set; }

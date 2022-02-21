@@ -22,6 +22,11 @@ namespace OSwan_TheatreApp.Controllers
         public ActionResult CreatePost()
 
         {
+            if(User.IsInRole("Suspended"))
+            {
+                RedirectToAction("Suspended", "Home");
+            }
+
             ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name");
 
 
@@ -46,18 +51,22 @@ namespace OSwan_TheatreApp.Controllers
                 //Adding created post to table
                 context.Posts.Add(post);
 
-                //Not using a viewmodel here so had trouble with implementation of "postID"
-                //To improvise and keep the filename unique I used UserID + Post title 
-                int dotPosition = Path.GetFileName(file.FileName).IndexOf(".");
+                if(file != null)
+                {
+                    //Not using a viewmodel here so had trouble with implementation of "postID"
+                    //To improvise and keep the filename unique I used CategoryID + Post title 
+                    int dotPosition = Path.GetFileName(file.FileName).IndexOf(".");
 
-                string fileExtension = Path.GetFileName(file.FileName).Substring(dotPosition);
+                    string fileExtension = Path.GetFileName(file.FileName).Substring(dotPosition);
 
-                var fileName = post.UserId + post.Title + fileExtension;
+                    //Keeps image file name unique
+                    var fileName = post.CategoryId + post.Title + fileExtension;
 
-                var path = Path.Combine(Server.MapPath("~/Images/Uploaded"), fileName);
-                file.SaveAs(path);
+                    var path = Path.Combine(Server.MapPath("~/Images/Uploaded"), fileName);
+                    file.SaveAs(path);
 
-                post.ImageUrl = path;
+                    post.ImageUrl = path;
+                }
 
                 //Saving changes to DB
                 context.SaveChanges();

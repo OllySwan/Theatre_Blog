@@ -1,59 +1,70 @@
 ﻿@model IEnumerable<OSwan_TheatreApp.Models.Comment>
+@using OSwan_TheatreApp.Models
 
 @{
     ViewBag.Title = "AllComments";
 }
 
-<h2>AllComments</h2>
+<h2>All Comments</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Text)
+            <u>@Html.DisplayNameFor(model => model.Text)</u>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CommentAuthor)
+            <u>Post Title</u>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            <u>Comment Author</u>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            <u>Date Posted</u>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.commentApprovalStatus)
+            <u>Approval Status</u>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommentAuthor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostId)
-        </td>
-        <td>
-            @Html.ActionLink("Approve", "ApproveComment", new { id=item.CommentId }) |
-            @Html.ActionLink("Decline", "DeclineComment", new { id=item.CommentId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("ApproveComment", "Admin", new { id = item.CommentId }))
+        {
+            var approveComment = "ApproveCommentModal_" + item.CommentId;
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Text)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Post.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CommentAuthor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.commentApprovalStatus)
+    </td>
+    <td>
+        <button type="submit" onclick=" return ConfirmationDialog(); location.href ='@Url.Action("ApproveComment", "Admin")'" class="btn-sm btn-success">
+            Approve
+        </button>   
+    </td>
+</tr>
+        }
+    }
 
 </table>
+
+<script type="text/javascript">
+    function ConfirmationDialog() {
+        if (confirm("Are you sure you want to approve?"))
+            return true;
+        else
+            return false;
+    }
+</script>

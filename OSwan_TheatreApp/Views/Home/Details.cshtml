@@ -5,72 +5,41 @@
     ViewBag.Title = "Details";
 }
 
+
+<style>
+    li,ul {
+        text-decoration: none;
+    }
+</style>
+
 <h2>Details</h2>
 
 <div>
     <h4>Post</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MainBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MainBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
+    <div class="card flex-md-row mb-4 box-shadow h-md-250">
+        <div class="card-body d-flex flex-column align-items-start">
+            <strong class="d-inline-block mb-2 text-primary"></strong>
+            <h2 class="mb-0">
+                @Html.DisplayFor(model => model.Title)
+            </h2>
+            <span class="text-info"> Posted By: @Html.DisplayFor(model => model.User.FirstName) </span>
+            <div class="mb-1 text-info">@Html.DisplayFor(model => model.DatePosted)</div>
+            <p class="card-text mb-auto">@Html.DisplayFor(model => model.MainBody)</p>
+        </div>
         @if (Model.ImageUrl != null)
         {
-            <dd>
-                <img src="@Url.Content("~/Images/Uploaded/" + Model.UserId + Model.Title +".jpg")" alt="@Model.Title" height="220" />
-            </dd>
+            <img src="@Url.Content("~/Images/Uploaded/" + Model.CategoryId + Model.Title +".jpg")" alt="@Model.Title" style="height: 350px; width:500px;" class="img-responsive img-rounded"/>
         }
         else
         {
-            <dd>
-                This post has no image attatched
-            </dd>
+            <p class="text-muted">This post has no image attatched</p>
         }
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePosted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DatePosted)
-        </dd>
-
-        <dd>
-            @Html.DisplayFor(model => model.DatePosted)
-        </dd>
-    </dl>
+    <hr />
 
     @if (Request.IsAuthenticated)
     {
@@ -91,9 +60,10 @@
                         if (comment.UserId != null)
                         {
 
-                            @: (by @comment.CommentAuthor)
+                            @: (by @comment.CommentAuthor Posted on @comment.Date)
                             if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
                             {
+
                                 <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
                             }
                             <hr />
@@ -102,7 +72,7 @@
                     }
                 }
             </li>
-            </ul>
+        </ul>
     }
     else
     {
@@ -110,6 +80,5 @@
     }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PostId }) |
     @Html.ActionLink("Back to List", "BlogHome")
 </p>
