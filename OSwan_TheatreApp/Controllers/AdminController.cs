@@ -396,17 +396,42 @@ namespace OSwan_TheatreApp.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult ApprovalQueue()
+        public ActionResult ApproveComment(int? id)
         {
-            //Retrieving and storing all posts whilst inclduing some properties
-            //Order all posts from date posted
-            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).OrderByDescending(p => p.DatePosted);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-            //Sending list of categories to view
-            ViewBag.Categories = db.Categories.ToList();
+            //find comment by id in the database
+            Comment comment = db.Comments.Find(id);
 
-            //Sending posts in a list to view
-            return View(posts.ToList());
+            //approving comment status
+            comment.commentApprovalStatus = commentApprovalStatus.Approved;
+
+            //Saving changes to DB
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public ActionResult DeclineComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //find comment by id in the database
+            Comment comment = db.Comments.Find(id);
+
+            //approving comment status
+            comment.commentApprovalStatus = commentApprovalStatus.Approved;
+
+            //Saving changes to DB
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Admin");
         }
 
         //This view will be used to have an overview of all posts where an admin can edit/delete everything
@@ -494,6 +519,16 @@ namespace OSwan_TheatreApp.Controllers
             return View(post);
         }
 
+        [HttpGet]
+        public ActionResult AllComments()
+        {
+            //Get all the comments and order them by date
+            var comments = db.Comments.OrderBy(c => c.Date).ToList();
+
+            //Return the list of comments to the view
+            return View(comments);
+        }
+
         public ActionResult PostDetails(int id)
         {
             //Search for desired post in db
@@ -565,5 +600,7 @@ namespace OSwan_TheatreApp.Controllers
             //Redirect to all posts view
             return RedirectToAction("AllPosts");
         }
+
+
     }
 }

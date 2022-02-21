@@ -96,6 +96,7 @@ namespace OSwan_TheatreApp.Controllers
                 comment.CommentAuthor = model.CommentAuthor;
                 comment.Date = DateTime.Now;
                 comment.Post = post;
+                comment.commentApprovalStatus = commentApprovalStatus.TBC;
                 
                 //Add comment to comments table
                 context.Comments.Add(comment);

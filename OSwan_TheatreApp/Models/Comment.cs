@@ -23,6 +23,8 @@ namespace OSwan_TheatreApp.Models
 
         public DateTime Date { get; set; }
 
+        public commentApprovalStatus commentApprovalStatus { get; set; }
+
         [ForeignKey("User")]
         public string UserId { get; set; }
 
@@ -31,5 +33,13 @@ namespace OSwan_TheatreApp.Models
         [ForeignKey("Post")]
         public int PostId { get; set; }
         public virtual Post Post { get; set; }
+    }
+
+    //Enum to handle approval status of post
+    public enum commentApprovalStatus
+    {
+        TBC,
+        Approved,
+        Declined
     }
 }

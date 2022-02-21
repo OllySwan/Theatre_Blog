@@ -46,8 +46,6 @@ namespace OSwan_TheatreApp.Controllers
                 //Adding created post to table
                 context.Posts.Add(post);
 
-
-
                 //Not using a viewmodel here so had trouble with implementation of "postID"
                 //To improvise and keep the filename unique I used UserID + Post title 
                 int dotPosition = Path.GetFileName(file.FileName).IndexOf(".");
@@ -60,10 +58,6 @@ namespace OSwan_TheatreApp.Controllers
                 file.SaveAs(path);
 
                 post.ImageUrl = path;
-
-
-
-
 
                 //Saving changes to DB
                 context.SaveChanges();

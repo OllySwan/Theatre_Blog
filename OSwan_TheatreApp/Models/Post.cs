@@ -14,6 +14,8 @@ namespace OSwan_TheatreApp.Models
             this.Comments = new List<Comment>();
         }
 
+
+
         [Key]
         public int PostId { get; set; }
 
@@ -33,6 +35,9 @@ namespace OSwan_TheatreApp.Models
         public DateTime DatePosted { get; set; }
 
         public ApprovalStatus ApprovalStatus { get; set; }
+
+        [NotMapped]
+        public string preview { get; set; }
 
 
         //Navigational Properties

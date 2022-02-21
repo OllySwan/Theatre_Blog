@@ -54,7 +54,7 @@
         }
         else
         {
-             <dd>
+            <dd>
                 This post has no image attatched
             </dd>
         }
@@ -74,34 +74,35 @@
 
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("Post Comment","CreateComment", new { id = Model.PostId})
+        @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
 
     }
 
 
     @if (Model.Comments.Any())
     {
-<ul>
-    @foreach (var comment in Model.Comments)
-    {
-        
-    <li>
-        @comment.Text
-        @if (comment.UserId != null)
-        {
-            
-            @: (by @comment.CommentAuthor)
-            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-            {
-                <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
-            }
-            <hr />
+        <ul>
+            <li>
+                @foreach (var comment in Model.Comments)
+                {
+                    if (comment.commentApprovalStatus == commentApprovalStatus.Approved)
+                    {
+                        @comment.Text
+                        if (comment.UserId != null)
+                        {
 
-        }
-    </li>
-        
-    }
-</ul>
+                            @: (by @comment.CommentAuthor)
+                            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                            {
+                                <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
+                            }
+                            <hr />
+
+                        }
+                    }
+                }
+            </li>
+            </ul>
     }
     else
     {

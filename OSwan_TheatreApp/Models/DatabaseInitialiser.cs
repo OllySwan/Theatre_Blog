@@ -242,7 +242,7 @@ namespace OSwan_TheatreApp.Models
                     Category = cat1,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "Delete me", User = registeredUser2 , CommentAuthor = "Sophie"}
+                        new Comment() {Text = "Delete me", User = registeredUser2 , CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved}
                     }
                 };
 
@@ -261,9 +261,9 @@ namespace OSwan_TheatreApp.Models
                     Category = cat1,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie" }
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
                 };
 
@@ -284,9 +284,9 @@ namespace OSwan_TheatreApp.Models
                     Category = cat3,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie" }
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
                 };
 
@@ -306,9 +306,9 @@ namespace OSwan_TheatreApp.Models
                     Category = cat3,
                     Comments = new List<Comment>()
                     {
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie"},
-                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie" }
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is a comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved},
+                        new Comment() {Text = "This is another comment", User = registeredUser1, CommentAuthor = "Sophie", commentApprovalStatus = commentApprovalStatus.Approved }
                     }
                 };
 

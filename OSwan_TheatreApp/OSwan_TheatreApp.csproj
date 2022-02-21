@@ -356,12 +356,10 @@
     <Content Include="Views\Member\CreatePost.cshtml" />
     <Content Include="Views\Home\BlogHome.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
-    <Content Include="Views\Admin\ApprovalQueue.cshtml" />
     <Content Include="Views\Admin\AllPosts.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\PostDetails.cshtml" />
     <Content Include="Views\Admin\DeletePost.cshtml" />
-    <Content Include="Views\Admin\ApproveDecline.cshtml" />
     <Content Include="Views\Home\CreateComment.cshtml" />
     <Content Include="Views\Home\DeleteComment.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -379,6 +377,8 @@
     <Content Include="Views\Member\Details.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\Member\DeletePost.cshtml" />
+    <Content Include="Views\Admin\AllComments.cshtml" />
+    <Content Include="Views\Admin\EditComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
