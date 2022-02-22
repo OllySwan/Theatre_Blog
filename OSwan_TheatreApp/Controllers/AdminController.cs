@@ -504,6 +504,11 @@ namespace OSwan_TheatreApp.Controllers
                 //Updating date on post
                 dbPost.DatePosted = DateTime.Now;
 
+                //Does not image url as assinged if there is no image attatched
+                if(post.ImageUrl == null)
+                {
+                    dbPost.ImageUrl = null;
+                }
                 dbPost.ImageUrl = "assigned";
 
                 //Update posts state to modified

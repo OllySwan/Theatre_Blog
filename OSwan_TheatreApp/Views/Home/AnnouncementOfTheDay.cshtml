@@ -53,7 +53,7 @@
                     if (comment.UserId != null)
                     {
 
-                        @: (by @comment.CommentAuthor Posted on @comment.Date)
+                        @: <span class="text-info">(by @comment.CommentAuthor, Posted on @comment.Date)</span>
                         if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
                         {
 
