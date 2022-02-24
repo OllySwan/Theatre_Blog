@@ -479,7 +479,7 @@ namespace OSwan_TheatreApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, UserId, CategoryId,ApprovalStatus")] Post post)
+        public ActionResult Edit([Bind(Include = "PostId, Title, MainBody, UserId, ImageUrl, CategoryId,ApprovalStatus")] Post post)
         {
             //finding and storing original copy of post
             Post dbPost = db.Posts.Find(post.PostId);
@@ -492,9 +492,6 @@ namespace OSwan_TheatreApp.Controllers
                 //Updating post title
                 dbPost.Title = post.Title;
 
-                //Applying image
-                dbPost.ImageUrl = post.ImageUrl;
-
                 //Setting new main body
                 dbPost.MainBody = post.MainBody;
 
@@ -505,17 +502,14 @@ namespace OSwan_TheatreApp.Controllers
                 dbPost.DatePosted = DateTime.Now;
 
                 //if image non attatched then set to null
-                if(post.ImageUrl != null)
-                {
-                    dbPost.ImageUrl = "assigned";
-                }
-                else
+                if(dbPost.ImageUrl == null)
                 {
                     dbPost.ImageUrl = null;
                 }
-
-                
-                dbPost.ImageUrl = "assigned";
+                else
+                {
+                    dbPost.ImageUrl = "assigned";
+                }
 
                 //Update posts state to modified
                 db.Entry(dbPost).State = EntityState.Modified;

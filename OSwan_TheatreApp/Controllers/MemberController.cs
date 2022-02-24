@@ -48,9 +48,6 @@ namespace OSwan_TheatreApp.Controllers
                 //Assigning userID to post
                 post.UserId = User.Identity.GetUserId();
 
-                //Adding created post to table
-                context.Posts.Add(post);
-
                 if(file != null)
                 {
                     //Not using a viewmodel here so had trouble with implementation of "postID"
@@ -67,6 +64,9 @@ namespace OSwan_TheatreApp.Controllers
 
                     post.ImageUrl = path;
                 }
+
+                //Adding created post to table
+                context.Posts.Add(post);
 
                 //Saving changes to DB
                 context.SaveChanges();
