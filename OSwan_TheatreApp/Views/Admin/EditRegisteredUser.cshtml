@@ -4,7 +4,7 @@
     ViewBag.Title = "EditRegisteredUser";
 }
 
-<h2>EditRegisteredUser</h2>
+<h2>Edit User</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>EditRegisteredUserViewModel</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -75,11 +74,21 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-default" onclick="return ConfirmationDialog()"/>
         </div>
     </div>
 </div>
 }
+
+
+<script type="text/javascript">
+    function ConfirmationDialog() {
+        if (confirm("Are you sure you want to edit the users information?"))
+            return true;
+        else
+            return false;
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

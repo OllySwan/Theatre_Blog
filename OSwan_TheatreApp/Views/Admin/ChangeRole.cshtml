@@ -3,14 +3,13 @@
     ViewBag.Title = "ChangeRole";
 }
 
-<h2>Change Role</h2>
+<h2>Change Role/Promote User</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Change Role for @Model.UserName</h4>
         <hr />
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -25,12 +24,22 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" onclick="return ConfirmationDialog()"/>
             </div>
         </div>
 
     </div>
 }
+
+
+<script type="text/javascript">
+    function ConfirmationDialog() {
+        if (confirm("Are you sure you want to change the users role?"))
+            return true;
+        else
+            return false;
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back To List", "Index")
