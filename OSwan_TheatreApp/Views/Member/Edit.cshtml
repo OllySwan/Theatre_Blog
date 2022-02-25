@@ -66,11 +66,20 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" onclick="return ConfirmationDialog()"/>
             </div>
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    function ConfirmationDialog() {
+        if (confirm("Are you sure you want to save your changes?"))
+            return true;
+        else
+            return false;
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -19,16 +19,10 @@
             Text
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.DatePosted)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            Category
         </th>
         <th></th>
     </tr>
@@ -48,16 +42,10 @@
             @Html.DisplayFor(modelItem => item.MainBody)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.DatePosted)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
+            @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.PostId }) |

@@ -251,5 +251,60 @@ namespace OSwan_TheatreApp.Controllers
             return RedirectToAction("UsersPosts");
         }
 
+        [HttpGet]
+        public ActionResult CreateComment()
+        {
+
+            PostCommentViewModel postCommentVM = new PostCommentViewModel();
+
+
+
+            return View(postCommentVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(PostCommentViewModel model)
+        {
+            //Error checking by checking model that has been passed is valid
+            if (ModelState.IsValid)
+            {
+                //storing post finding/using modelId
+                var post = context.Posts.Find(model.Id);
+
+                //Constructing a comment
+                var comment = new Comment();
+
+                comment.Post = post;
+                comment.PostId = post.PostId;
+                comment.UserId = post.UserId;
+                comment.User = post.User;
+                comment.Text = model.Text;
+                comment.CommentAuthor = model.CommentAuthor;
+                comment.Date = DateTime.Now;
+                comment.Post = post;
+                comment.commentApprovalStatus = commentApprovalStatus.TBC;
+
+                //Add comment to comments table
+                context.Comments.Add(comment);
+
+                //Storing userID
+                var userID = User.Identity.GetUserId();
+
+                //Finding user by ID
+                var user = context.Users.Find(userID);
+
+                //Adding comment to users comment list
+                user.Comments.Add(comment);
+
+                //Saving changes to DB
+                context.SaveChanges();
+
+                return RedirectToAction("BlogHome", "Home");
+
+            }
+            return View(model);
+        }
+
     }
 }

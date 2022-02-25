@@ -383,6 +383,7 @@
     <Content Include="Views\Member\DeletePost.cshtml" />
     <Content Include="Views\Admin\AllComments.cshtml" />
     <Content Include="Views\Admin\EditComment.cshtml" />
+    <Content Include="Views\Member\CreateComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
