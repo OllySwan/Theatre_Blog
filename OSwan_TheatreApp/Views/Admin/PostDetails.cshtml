@@ -1,64 +1,71 @@
 ﻿@model OSwan_TheatreApp.Models.Post
+@using OSwan_TheatreApp.Models
 
 @{
     ViewBag.Title = "PostDetails";
 }
 
-<h2>PostDetails</h2>
+<h2>Post Details</h2>
 
 <div>
     <h4>Post</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MainBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MainBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-
-        <dd>
+    <div class="card flex-md-row mb-4 box-shadow h-md-250">
+        <div class="card-body d-flex flex-column align-items-start">
+            <strong class="d-inline-block mb-2 text-primary"></strong>
+            <h2 class="mb-0">
+                @Html.DisplayFor(model => model.Title)
+            </h2>
+            <span class="text-info"> Posted By: @Html.DisplayFor(model => model.User.FirstName) </span>
+            <div class="mb-1 text-info">@Html.DisplayFor(model => model.DatePosted)</div>
+            <p class="card-text mb-auto">@Html.DisplayFor(model => model.MainBody)</p>
+        </div>
+        @if (Model.ImageUrl != null)
+        {
             <img src="@Url.Content("~/Images/Uploaded/" + Model.CategoryId + Model.Title +".jpg")" alt="@Model.Title" style="height: 350px; width:500px;" class="img-responsive img-rounded" />
-        </dd>
+        }
+        else
+        {
+            <p class="text-muted">This post has no image attatched</p>
+        }
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePosted)
-        </dt>
+    <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.DatePosted)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
+    @if (Model.Comments.Any())
+    {
+        <ul>
+            <li>
+                @foreach (var comment in Model.Comments)
+                {
+                    if (comment.commentApprovalStatus == commentApprovalStatus.Approved)
+                    {
+                        @comment.Text
+                        if (comment.UserId != null)
+                        {
 
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
-        </dd>
+                            @: <span class="text-info">(by @comment.CommentAuthor, Posted on @comment.Date)</span>
+                            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                            {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
+                                <span class="pull-right">@Html.ActionLink("Delete", "DeleteComment", new { id = comment.CommentId })</span>
+                            }
+                            <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
+                        }
+                    }
+                }
+            </li>
+        </ul>
+    }
+    else
+    {
+        <p>No Comments!</p>
+    }
 
-    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PostId }) |

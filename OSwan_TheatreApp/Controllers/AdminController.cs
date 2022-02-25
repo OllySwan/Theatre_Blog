@@ -619,7 +619,7 @@ namespace OSwan_TheatreApp.Controllers
             db.SaveChanges();
 
             //Redirect to all posts view
-            return RedirectToAction("BlogHome");
+            return RedirectToAction("AllPosts");
         }
 
 
