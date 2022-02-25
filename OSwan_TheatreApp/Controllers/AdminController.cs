@@ -607,6 +607,30 @@ namespace OSwan_TheatreApp.Controllers
             return RedirectToAction("AllPosts");
         }
 
+        [HttpGet]
+        public ActionResult DeleteComment(int? id)
+        {
+            //if id is null then return bad request error
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Find post that has been passed
+            Comment comment = db.Comments.Find(id);
+
+            //if comment is null, throw error
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            //return delete view and send comment
+            return View(comment);
+        }
+
+        [HttpPost, ActionName("DeleteComment")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteComment(int id)
         {
             //Find comment by id

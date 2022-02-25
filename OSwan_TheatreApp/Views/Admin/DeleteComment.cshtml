@@ -34,13 +34,6 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostId)
-        </dd>
 
     </dl>
 
@@ -50,7 +43,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" onclick="return ConfirmationDialog()" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "AllPosts")
         </div>
     }
 </div>
