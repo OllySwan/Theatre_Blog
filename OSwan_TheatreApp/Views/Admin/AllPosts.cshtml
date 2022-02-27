@@ -50,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PostId }) |
+            @Html.ActionLink("Edit/Approve", "Edit", new { id=item.PostId }) |
             @Html.ActionLink("Details", "PostDetails", new { id=item.PostId }) |
             @Html.ActionLink("Delete", "DeletePost", new { id=item.PostId })
         </td>

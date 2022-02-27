@@ -31,7 +31,7 @@
         </div>
         @if (Model.ImageUrl != null)
         {
-            <img src="@Url.Content("~/Images/Uploaded/" + Model.CategoryId + Model.Title +".jpg")" alt="@Model.Title" style="height: 350px; width:500px;" class="img-responsive img-rounded"/>
+            <img src="@Url.Content("~/Images/Uploaded/" + Model.CategoryId + Model.Title +".jpg")" alt="@Model.Title" style="height: 350px; width:500px;" class="img-responsive img-rounded" />
         }
         else
         {
@@ -43,7 +43,10 @@
 
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
+        if (User.IsInRole("Moderator") || User.IsInRole("Admin") || )
+        {
+            @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
+        }
 
     }
 
