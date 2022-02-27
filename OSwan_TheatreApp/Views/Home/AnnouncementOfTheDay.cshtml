@@ -36,7 +36,10 @@
 
 @if (Request.IsAuthenticated)
 {
-    @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
+    if (User.IsInRole("Moderator") || User.IsInRole("Admin") || User.IsInRole("RegisteredUser"))
+    {
+        @Html.ActionLink("Post Comment", "CreateComment", new { id = Model.PostId })
+    }
 
 }
 
