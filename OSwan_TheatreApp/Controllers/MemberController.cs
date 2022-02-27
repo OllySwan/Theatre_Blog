@@ -59,9 +59,12 @@ namespace OSwan_TheatreApp.Controllers
                     //Keeps image file name unique
                     var fileName = post.CategoryId + post.Title + fileExtension;
 
+                    //Setting path
                     var path = Path.Combine(Server.MapPath("~/Images/Uploaded"), fileName);
                     file.SaveAs(path);
 
+                    //Assigning imageurl, this helps with the front end 
+                    //Let's front end know if there is an image to be showed or not.
                     post.ImageUrl = path;
                 }
 
